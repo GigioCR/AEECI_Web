@@ -1,0 +1,16 @@
+# VS Code
+.vscode/
+
+# Visual Studio
+**/bin/
+**/obj/
+*.suo
+*.user
+*.vs/
+
+# Node / Vue
+node_modules/
+dist/
+
+# Configuraciones de entorno
+.env
