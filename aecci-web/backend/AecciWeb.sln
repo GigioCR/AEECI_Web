@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AecciWeb", "AecciWeb.csproj", "{2C27235F-1E7B-48F6-9CE5-0BFFF79A7CAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C27235F-1E7B-48F6-9CE5-0BFFF79A7CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C27235F-1E7B-48F6-9CE5-0BFFF79A7CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C27235F-1E7B-48F6-9CE5-0BFFF79A7CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C27235F-1E7B-48F6-9CE5-0BFFF79A7CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BFA4C57-5017-4CBF-9BDE-D9ADE1B60392}
+	EndGlobalSection
+EndGlobal
