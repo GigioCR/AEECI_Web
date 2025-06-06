@@ -21,7 +21,7 @@ namespace AecciWeb.Controllers
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetAllProducts()
         {
             var products = await _context.Products
-                .AsNoTracking() // Calidad: solo lectura, sin tracking
+                .AsNoTracking()
                 .ToListAsync();
 
             var result = products.Select(p => new ProductReadDto
