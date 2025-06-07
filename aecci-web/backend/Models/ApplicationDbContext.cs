@@ -10,6 +10,7 @@ namespace AecciWeb.Models
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
