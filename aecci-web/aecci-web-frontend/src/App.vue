@@ -5,7 +5,6 @@
       <v-spacer />
       <v-btn text to="/">Inicio</v-btn>
       <v-btn text to="/login">Login</v-btn>
-      <v-btn text to="/admin">Admin</v-btn>
     </v-app-bar>
 
     <v-main>
