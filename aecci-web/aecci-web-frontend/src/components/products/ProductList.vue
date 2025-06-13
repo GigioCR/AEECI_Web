@@ -1,27 +1,42 @@
 <template>
   <v-container>
-    <v-row justify="space-between" align="center" class="mb-4">
-      <v-col cols="auto"><h2>Productos</h2></v-col>
-      <v-col cols="auto">
+    <v-card flat>
+      <v-card-title class="d-flex align-center">
+        <v-icon class="mr-2">mdi-package-variant</v-icon>
+        Inventario de Productos
+        <v-spacer />
         <v-btn color="primary" @click="openDialog()">Nuevo Producto</v-btn>
-      </v-col>
-    </v-row>
+      </v-card-title>
+      <v-divider />
 
-    <v-data-table
-      :headers="headers"
-      :items="products"
-      :items-per-page="5"
-      class="elevation-1"
-    >
-      <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" color="blue" @click="editProduct(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small color="red" @click="deleteProduct(item.id)">
-          mdi-delete
-        </v-icon>
-      </template>
-    </v-data-table>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Precio (₡)</th>
+            <th>Cantidad</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="product in products" :key="product.id">
+            <td>{{ product.name }}</td>
+            <td>₡{{ product.price.toFixed(2) }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.isAvailable ? 'Sí' : 'No' }}</td>
+            <td>
+              <v-btn icon small color="blue" @click="editProduct(product)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn icon small color="red" @click="deleteProduct(product.id)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </v-card>
 
     <!-- Diálogo de creación/edición -->
     <v-dialog v-model="dialog" max-width="600px">
@@ -31,7 +46,6 @@
             {{ editedIndex === -1 ? 'Nuevo Producto' : 'Editar Producto' }}
           </span>
         </v-card-title>
-
         <v-card-text>
           <v-form ref="form" v-model="isValid">
             <v-text-field
@@ -49,7 +63,7 @@
             />
             <v-text-field
               v-model.number="editedItem.price"
-              label="Precio (₡)"
+              label="Precio"
               type="number"
               :rules="priceRules"
               required
@@ -67,16 +81,15 @@
             />
             <v-text-field
               v-model="editedItem.imageUrl"
-              label="URL de Imagen"
+              label="URL Imagen"
               :rules="imageUrlRules"
             />
           </v-form>
         </v-card-text>
-
         <v-card-actions>
           <v-spacer />
           <v-btn text color="gray" @click="closeDialog()">Cancelar</v-btn>
-          <v-btn text color="green darken-1" @click="save()" :disabled="!isValid">
+          <v-btn text color="green darken-1" :disabled="!isValid" @click="save()">
             Guardar
           </v-btn>
         </v-card-actions>
@@ -85,135 +98,107 @@
   </v-container>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 
-export default {
-  name: 'ProductList',
-  setup() {
-    const products = ref([])
-    const dialog = ref(false)
-    const isValid = ref(false)
-    const form = ref(null)
-    const editedIndex = ref(-1)
-    const defaultItem = {
-      id: null,
-      name: '',
-      description: '',
-      price: 0.0,
-      quantity: 0,
-      isAvailable: true,
-      imageUrl: ''
-    }
-    const editedItem = ref({ ...defaultItem })
+const products = ref([])
+const dialog = ref(false)
+const isValid = ref(false)
+const form = ref(null)
+const editedIndex = ref(-1)
+const defaultItem = {
+  id: null,
+  name: '',
+  description: '',
+  price: 0.0,
+  quantity: 0,
+  isAvailable: true,
+  imageUrl: ''
+}
+const editedItem = ref({ ...defaultItem })
 
-    const headers = [
-      { text: 'Nombre', value: 'name' },
-      { text: 'Precio (₡)', value: 'price' },
-      { text: 'Cantidad', value: 'quantity' },
-      { text: 'Disponible', value: 'isAvailable' },
-      { text: 'Acciones', value: 'actions', sortable: false }
-    ]
+/*const headers = [
+  { text: 'Nombre', value: 'name' },
+  { text: 'Precio (₡)', value: 'price' },
+  { text: 'Cantidad', value: 'quantity' },
+  { text: 'Disponible', value: 'isAvailable' },
+  { text: 'Acciones', value: 'actions', sortable: false }
+]*/
 
-    const nameRules = [
-      v => !!v || 'El nombre es obligatorio',
-      v => v.length <= 100 || 'Máximo 100 caracteres'
-    ]
-    const descriptionRules = [
-      v => !!v || 'La descripción es obligatoria',
-      v => v.length <= 500 || 'Máximo 500 caracteres'
-    ]
-    const priceRules = [
-      v => v !== null && v !== undefined || 'El precio es obligatorio',
-      v => v >= 0 || 'El precio debe ser ≥ 0'
-    ]
-    const quantityRules = [
-      v => v !== null && v !== undefined || 'La cantidad es obligatoria',
-      v => Number.isInteger(v) && v >= 0 || 'La cantidad debe ser entero ≥ 0'
-    ]
-    const imageUrlRules = [
-      v => !v || v.length <= 200 || 'Máximo 200 caracteres'
-    ]
+const nameRules = [
+  v => !!v || 'El nombre es obligatorio',
+  v => v.length <= 100 || 'Máximo 100 caracteres'
+]
+const descriptionRules = [
+  v => !!v || 'La descripción es obligatoria',
+  v => v.length <= 500 || 'Máximo 500 caracteres'
+]
+const priceRules = [
+  v => v != null || 'El precio es obligatorio',
+  v => v >= 0 || 'El precio debe ser ≥ 0'
+]
+const quantityRules = [
+  v => Number.isInteger(v) || 'La cantidad debe ser un entero',
+  v => v >= 0 || 'La cantidad debe ser ≥ 0'
+]
+const imageUrlRules = [
+  v => !v || v.length <= 200 || 'Máximo 200 caracteres'
+]
 
-    const fetchProducts = async () => {
-      try {
-        const res = await api.get('/products')
-        products.value = res.data
-      } catch (err) {
-        console.error('Error al cargar productos:', err)
-      }
-    }
-
-    const openDialog = () => {
-      editedIndex.value = -1
-      editedItem.value = { ...defaultItem }
-      dialog.value = true
-    }
-
-    const editProduct = item => {
-      editedIndex.value = products.value.findIndex(p => p.id === item.id)
-      editedItem.value = { ...item }
-      dialog.value = true
-    }
-
-    const save = async () => {
-      if (!form.value.validate()) return
-
-      try {
-        if (editedIndex.value > -1) {
-          // Actualizar
-          await api.put(`/products/${editedItem.value.id}`, editedItem.value)
-          products.value.splice(editedIndex.value, 1, { ...editedItem.value })
-        } else {
-          // Crear
-          const res = await api.post('/products', editedItem.value)
-          products.value.push(res.data)
-        }
-        closeDialog()
-      } catch (err) {
-        console.error('Error al guardar:', err)
-      }
-    }
-
-    const deleteProduct = async id => {
-      if (!confirm('¿Eliminar este producto?')) return
-      try {
-        await api.delete(`/products/${id}`)
-        products.value = products.value.filter(p => p.id !== id)
-      } catch (err) {
-        console.error('Error al eliminar:', err)
-      }
-    }
-
-    const closeDialog = () => {
-      dialog.value = false
-      form.value.resetValidation()
-    }
-
-    onMounted(fetchProducts)
-
-    return {
-      products,
-      headers,
-      dialog,
-      isValid,
-      form,
-      editedItem,
-      editedIndex,
-      nameRules,
-      descriptionRules,
-      priceRules,
-      quantityRules,
-      imageUrlRules,
-      openDialog,
-      editProduct,
-      save,
-      deleteProduct,
-      closeDialog
-    }
+async function fetchProducts() {
+  try {
+    const res = await api.get('/products')
+    products.value = res.data
+  } catch (e) {
+    console.error('Error al cargar productos:', e)
   }
 }
+
+function openDialog() {
+  editedIndex.value = -1
+  editedItem.value = { ...defaultItem }
+  dialog.value = true
+}
+
+function editProduct(item) {
+  editedIndex.value = products.value.findIndex(p => p.id === item.id)
+  editedItem.value = { ...item }
+  dialog.value = true
+}
+
+async function save() {
+  if (!form.value.validate()) return
+  try {
+    if (editedIndex.value > -1) {
+      await api.put(`/products/${editedItem.value.id}`, editedItem.value)
+      products.value.splice(editedIndex.value, 1, { ...editedItem.value })
+    } else {
+      const res = await api.post('/products', editedItem.value)
+      products.value.push(res.data)
+    }
+    closeDialog()
+  } catch (e) {
+    console.error('Error al guardar producto:', e)
+  }
+}
+
+async function deleteProduct(id) {
+  if (!confirm('¿Eliminar este producto?')) return
+  try {
+    await api.delete(`/products/${id}`)
+    products.value = products.value.filter(p => p.id !== id)
+  } catch (e) {
+    console.error('Error al eliminar producto:', e)
+  }
+}
+
+function closeDialog() {
+  dialog.value = false
+  form.value.resetValidation()
+}
+
+onMounted(fetchProducts)
 </script>
 
 <style scoped>
