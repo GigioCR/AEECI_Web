@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView        from '@/views/HomeView.vue'
+import HomeViewAdmin from '@/views/HomeViewAdmin.vue'
 import LoginView       from '@/views/LoginForm.vue'
-import ProductList     from '@/components/products/ProductList.vue'
-import AnnouncementList from '@/components/announcements/AnnouncementList.vue'
+import ProductListAdmin     from '@/components/products/ProductListAdmin.vue'
+import AnnouncementListAdmin from '@/components/announcements/AnnouncementListAdmin.vue'
 import InfoView        from '@/views/InfoView.vue'
 import { useAuthStore } from '@/store/auth'
 import SidebarLayout   from '@/layouts/SideBarLayout.vue'
@@ -10,26 +11,27 @@ import SidebarLayout   from '@/layouts/SideBarLayout.vue'
 
 
 const routes = [
-  {path: '/', name: 'Home', component: HomeView},
+  {path: '/admin/home', name: 'Home', component: HomeViewAdmin},
+  { path: '/',      name: 'Home',  component: HomeView },
   {
     path: '/login',
     name: 'Login',
     component: LoginView
   },
   {
-    path: '/',
+    path: '/admin',
     component: SidebarLayout,
     meta: { requiresAuth: true },
     children: [
       {
         path: 'products',
         name: 'Products',
-        component: ProductList
+        component: ProductListAdmin
       },
       {
         path: 'announcements',
         name: 'Announcements',
-        component: AnnouncementList
+        component: AnnouncementListAdmin
       },
       {
         path: 'info',
