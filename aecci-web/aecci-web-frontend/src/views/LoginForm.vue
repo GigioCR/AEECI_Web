@@ -1,6 +1,7 @@
 <template>
-  <v-container class="fill-height d-flex justify-center align-center">
-    <v-card max-width="400" class="pa-4">
+  <v-container class="fill-height d-flex flex-column justify-center align-center">
+    <h2 class="mb-6 text-3xl font-bold text-gray-800 text-center">Inicio de Sesión</h2>
+    <v-card max-width="800" min-width="400" class="pa-4">
       <v-form ref="form" v-model="valid">
         <v-text-field
           v-model="user"

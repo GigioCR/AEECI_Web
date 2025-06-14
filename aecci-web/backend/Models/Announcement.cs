@@ -22,5 +22,7 @@ namespace AecciWeb.Models
 
         [Required]
         public bool IsUp { get; set; } = true;
+
+        public DateTime PublishedDate{get; set;}
     }
 }

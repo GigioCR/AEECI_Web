@@ -12,15 +12,24 @@ namespace AecciWeb.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<StoreStatus> StoreStatus { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Announcement>(entity =>
+            {
+                entity.Property(e => e.PublishedDate)
+                      .ValueGeneratedOnAdd();
+
+            });
         }
     }
 }
