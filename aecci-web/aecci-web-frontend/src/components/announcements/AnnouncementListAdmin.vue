@@ -1,88 +1,119 @@
 <template>
-  <v-container>
-    <v-card flat>
-      <v-card-title class="d-flex align-center">
-        <v-icon class="mr-2">mdi-bullhorn</v-icon>
-        Gestión de Avisos
-        <v-spacer />
-        <v-btn color="primary" @click="openDialog()">Nuevo Aviso</v-btn>
-      </v-card-title>
-      <v-divider />
-
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Fecha</th>
-            <th>Cuerpo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="ann in announcements" :key="ann.id">
-            <td>{{ ann.title }}</td>
-            <td>{{ formatDate(ann.publicationDate) }}</td>
-            <td>{{ ann.body }}</td>
-            <td>
-              <v-btn icon small color="blue" @click="editAnnouncement(ann)">
-                <v-icon>mdi-pencil</v-icon>
+        <v-container>
+          <v-card flat class="pa-4">
+            <v-card-title class="d-flex align-center mb-4">
+              <v-icon class="mr-2">mdi-bullhorn</v-icon>
+              <span class="text-h5 font-weight-bold">Gestión de Avisos</span>
+              <v-spacer />
+              <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg">
+                Nuevo Aviso
               </v-btn>
-              <v-btn icon small color="red" @click="deleteAnnouncement(ann.id)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </v-card>
+            </v-card-title>
+            <v-divider class="my-4" />
 
-    <!-- Diálogo de creación/edición -->
-    <v-dialog v-model="dialog" max-width="600px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">
-            {{ editedIndex === -1 ? 'Nuevo Aviso' : 'Editar Aviso' }}
-          </span>
-        </v-card-title>
-        <v-card-text>
-          <v-form ref="form" v-model="isValid">
-            <v-text-field
-              v-model="editedItem.title"
-              label="Título"
-              :rules="titleRules"
-              required
-            />
-            <v-textarea
-              v-model="editedItem.body"
-              label="Cuerpo del Aviso"
-              :rules="bodyRules"
-              auto-grow
-              required
-            />
-            <v-text-field
-              v-model="editedItem.publicationDate"
-              label="Fecha y Hora"
-              type="datetime-local"
-              :rules="dateRules"
-              required
-            />
-            <v-text-field
-              v-model="editedItem.imageUrl"
-              label="URL Imagen (opcional)"
-              :rules="imageUrlRules"
-            />
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn text color="gray" @click="closeDialog()">Cancelar</v-btn>
-          <v-btn text color="green darken-1" :disabled="!isValid" @click="save()">
-            Guardar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-container>
+            <!-- Announcement Cards Layout -->
+            <v-row>
+              <v-col
+                v-for="announcement in announcements"
+                :key="announcement.id"
+                cols="12"
+                sm="6"
+                md="4"
+                lg="3"
+              >
+                <v-card class="mx-auto my-4 rounded-lg elevation-3 d-flex flex-column h-100">
+                  <v-img
+                    v-if="announcement.imageUrl"
+                    :src="announcement.imageUrl"
+                    height="180px"
+                    cover
+                    class="rounded-t-lg"
+                  >
+                  </v-img>
+                  <v-card-title class="text-h6 font-weight-bold">
+                    {{ announcement.title }}
+                  </v-card-title>
+                  <v-card-subtitle class="d-flex flex-column align-start">
+                    <span class="text-caption text-grey-darken-1">Publicado:</span>
+                    <span class="text-body-1 font-weight-medium">{{ formatDate(announcement.publishedDate) }}</span>
+                  </v-card-subtitle>
+                  <v-card-text class="flex-grow-1 text-body-2 text-grey-darken-2">
+                    {{ announcement.body }}
+                  </v-card-text>
+                  <v-card-actions class="justify-end pt-0 pb-4 px-4">
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="tonal"
+                      size="small"
+                      class="mr-2"
+                      @click="editAnnouncement(announcement)"
+                    >
+                      <v-icon start>mdi-pencil</v-icon>
+                      Editar
+                    </v-btn>
+                    <v-btn
+                      color="red-darken-1"
+                      variant="tonal"
+                      size="small"
+                      @click="deleteAnnouncement(announcement.id)"
+                    >
+                      <v-icon start>mdi-delete</v-icon>
+                      Eliminar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+              <v-col v-if="announcements.length === 0" cols="12" class="text-center text-h6 text-grey-darken-1 py-10">
+                No hay avisos disponibles.
+              </v-col>
+            </v-row>
+          </v-card>
+
+          <!-- Diálogo de creación/edición -->
+          <v-dialog v-model="dialog" max-width="600px">
+            <v-card class="rounded-lg">
+              <v-card-title class="bg-primary text-white py-3 px-5 rounded-t-lg">
+                <span class="headline">
+                  {{ editedIndex === -1 ? 'Nuevo Aviso' : 'Editar Aviso' }}
+                </span>
+              </v-card-title>
+              <v-card-text class="py-4 px-5">
+                <v-form ref="form" v-model="isValid">
+                  <v-text-field
+                    v-model="editedItem.title"
+                    label="Título"
+                    :rules="titleRules"
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-textarea
+                    v-model="editedItem.body"
+                    label="Cuerpo del Aviso"
+                    :rules="bodyRules"
+                    auto-grow
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-text-field
+                    v-model="editedItem.imageUrl"
+                    label="URL Imagen (opcional)"
+                    :rules="imageUrlRules"
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                </v-form>
+              </v-card-text>
+              <v-card-actions class="justify-end bg-grey-lighten-4 py-3 px-5 rounded-b-lg">
+                <v-btn text color="grey-darken-2" @click="closeDialog()" class="px-4 py-2 rounded-lg">Cancelar</v-btn>
+                <v-btn text color="green-darken-2" :disabled="!isValid" @click="save()" class="px-4 py-2 rounded-lg">
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-container>
 </template>
 
 <script setup>
@@ -98,28 +129,22 @@ const defaultItem = {
   id: null,
   title: '',
   body: '',
-  publicationDate: '',
+  publishedDate: '',
   imageUrl: ''
 }
 const editedItem = ref({ ...defaultItem })
-
-/*const headers = [
-  { text: 'Título', value: 'title' },
-  { text: 'Fecha', value: 'publicationDate' },
-  { text: 'Acciones', value: 'actions', sortable: false }
-]*/
 
 const titleRules = [
   v => !!v || 'El título es obligatorio',
   v => v.length <= 200 || 'Máximo 200 caracteres'
 ]
 const bodyRules = [ v => !!v || 'El cuerpo es obligatorio' ]
-const dateRules = [ v => !!v || 'La fecha es obligatoria' ]
 const imageUrlRules = [ v => !v || v.length <= 500 || 'Máximo 500 caracteres' ]
 
-function formatDate(iso) {
-  return new Date(iso).toLocaleString()
-}
+const formatDate = iso => {
+      const d = new Date(iso)
+      return d.toLocaleDateString()
+    }
 
 async function fetchAnnouncements() {
   try {
@@ -140,7 +165,7 @@ function editAnnouncement(item) {
   editedIndex.value = announcements.value.findIndex(a => a.id === item.id)
   editedItem.value = {
     ...item,
-    publicationDate: item.publicationDate.slice(0, 16)
+    publishedDate: item.publishedDate.slice(0, 16)
   }
   dialog.value = true
 }

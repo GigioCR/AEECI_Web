@@ -1,101 +1,162 @@
 <template>
   <v-container>
-    <v-card flat>
-      <v-card-title class="d-flex align-center">
-        <v-icon class="mr-2">mdi-package-variant</v-icon>
-        Inventario de Productos
-        <v-spacer />
-        <v-btn color="primary" @click="openDialog()">Nuevo Producto</v-btn>
-      </v-card-title>
-      <v-divider />
-
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio (₡)</th>
-            <th>Cantidad</th>
-            <th>Disponible</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in products" :key="product.id">
-            <td>{{ product.name }}</td>
-            <td>₡{{ product.price.toFixed(2) }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.isAvailable ? 'Sí' : 'No' }}</td>
-            <td>
-              <v-btn icon small color="blue" @click="editProduct(product)">
-                <v-icon>mdi-pencil</v-icon>
+          <v-card flat class="pa-4">
+            <v-card-title class="d-flex align-center mb-4">
+              <v-icon class="mr-2">mdi-package-variant</v-icon>
+              <span class="text-h5 font-weight-bold">Inventario de Productos</span>
+              <v-spacer />
+              <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg">
+                Nuevo Producto
               </v-btn>
-              <v-btn icon small color="red" @click="deleteProduct(product.id)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </v-card>
+            </v-card-title>
+            <v-divider class="my-4" />
 
-    <!-- Diálogo de creación/edición -->
-    <v-dialog v-model="dialog" max-width="600px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">
-            {{ editedIndex === -1 ? 'Nuevo Producto' : 'Editar Producto' }}
-          </span>
-        </v-card-title>
-        <v-card-text>
-          <v-form ref="form" v-model="isValid">
-            <v-text-field
-              v-model="editedItem.name"
-              label="Nombre"
-              :rules="nameRules"
-              required
-            />
-            <v-textarea
-              v-model="editedItem.description"
-              label="Descripción"
-              :rules="descriptionRules"
-              auto-grow
-              required
-            />
-            <v-text-field
-              v-model.number="editedItem.price"
-              label="Precio"
-              type="number"
-              :rules="priceRules"
-              required
-            />
-            <v-text-field
-              v-model.number="editedItem.quantity"
-              label="Cantidad"
-              type="number"
-              :rules="quantityRules"
-              required
-            />
-            <v-switch
-              v-model="editedItem.isAvailable"
-              label="Disponible"
-            />
-            <v-text-field
-              v-model="editedItem.imageUrl"
-              label="URL Imagen"
-              :rules="imageUrlRules"
-            />
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn text color="gray" @click="closeDialog()">Cancelar</v-btn>
-          <v-btn text color="green darken-1" :disabled="!isValid" @click="save()">
-            Guardar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-container>
+            <!-- Product Cards Layout -->
+            <v-row>
+              <v-col
+                v-for="product in products"
+                :key="product.id"
+                cols="12"
+                sm="6"
+                md="4"
+                lg="3"
+              >
+                <v-card class="mx-auto my-4 rounded-lg elevation-3 d-flex flex-column h-100">
+                  <v-img
+                    :src="product.imageUrl || 'https://placehold.co/300x200/E0E0E0/000000?text=No+Image'"
+                    height="180px"
+                    cover
+                    class="rounded-t-lg"
+                  >
+                  </v-img>
+                  <v-card-title class="text-h6 font-weight-bold">
+                    {{ product.name }}
+                  </v-card-title>
+                  <v-card-subtitle class="d-flex flex-column align-start">
+                    <span class="text-caption text-grey-darken-1">Precio:</span>
+                    <span class="text-body-1 font-weight-medium">₡{{ product.price.toFixed(2) }}</span>
+                    <div class="mt-2">
+                      <v-chip
+                        :color="product.isAvailable ? 'green-darken-1' : 'red-darken-1'"
+                        label
+                        size="small"
+                        class="text-uppercase"
+                      >
+                        {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
+                      </v-chip>
+                      <v-chip
+                        v-if="product.quantity > 0"
+                        label
+                        size="small"
+                        class="ml-2 bg-blue-grey-lighten-4 text-blue-grey-darken-3"
+                      >
+                        Cant: {{ product.quantity }}
+                      </v-chip>
+                    </div>
+                  </v-card-subtitle>
+                  <v-card-text class="flex-grow-1 text-body-2 text-grey-darken-2">
+                    {{ product.description }}
+                  </v-card-text>
+                  <v-card-actions class="justify-end pt-0 pb-4 px-4">
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="tonal"
+                      size="small"
+                      class="mr-2"
+                      @click="editProduct(product)"
+                    >
+                      <v-icon start>mdi-pencil</v-icon>
+                      Editar
+                    </v-btn>
+                    <v-btn
+                      color="red-darken-1"
+                      variant="tonal"
+                      size="small"
+                      @click="deleteProduct(product.id)"
+                    >
+                      <v-icon start>mdi-delete</v-icon>
+                      Eliminar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+              <v-col v-if="products.length === 0" cols="12" class="text-center text-h6 text-grey-darken-1 py-10">
+                No hay productos disponibles.
+              </v-col>
+            </v-row>
+
+          </v-card>
+
+          <!-- Diálogo de creación/edición -->
+          <v-dialog v-model="dialog" max-width="600px">
+            <v-card class="rounded-lg">
+              <v-card-title class="bg-primary text-white py-3 px-5 rounded-t-lg">
+                <span class="headline">
+                  {{ editedIndex === -1 ? 'Nuevo Producto' : 'Editar Producto' }}
+                </span>
+              </v-card-title>
+              <v-card-text class="py-4 px-5">
+                <v-form ref="form" v-model="isValid">
+                  <v-text-field
+                    v-model="editedItem.name"
+                    label="Nombre"
+                    :rules="nameRules"
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-textarea
+                    v-model="editedItem.description"
+                    label="Descripción"
+                    :rules="descriptionRules"
+                    auto-grow
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-text-field
+                    v-model.number="editedItem.price"
+                    label="Precio"
+                    type="number"
+                    :rules="priceRules"
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-text-field
+                    v-model.number="editedItem.quantity"
+                    label="Cantidad"
+                    type="number"
+                    :rules="quantityRules"
+                    required
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                  <v-switch
+                    v-model="editedItem.isAvailable"
+                    label="Disponible"
+                    color="primary"
+                    inset
+                    class="mb-4"
+                  />
+                  <v-text-field
+                    v-model="editedItem.imageUrl"
+                    label="URL Imagen"
+                    :rules="imageUrlRules"
+                    variant="outlined"
+                    class="mb-4"
+                  />
+                </v-form>
+              </v-card-text>
+              <v-card-actions class="justify-end bg-grey-lighten-4 py-3 px-5 rounded-b-lg">
+                <v-btn text color="grey-darken-2" @click="closeDialog()" class="px-4 py-2 rounded-lg">Cancelar</v-btn>
+                <v-btn text color="green-darken-2" :disabled="!isValid" @click="save()" class="px-4 py-2 rounded-lg">
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-container>
 </template>
 
 <script setup>

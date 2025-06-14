@@ -1,63 +1,157 @@
 <template>
   <v-container fluid class="mt-8">
-    <!-- Sección de anuncios -->
-    <v-row>
-      <v-col cols="12" class="text-center">
-        <h1 class="mb-4">Avisos Recientes</h1>
-      </v-col>
-      <v-col
-        v-for="announce in announcements"
-        :key="announce.id"
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <v-card class="mb-4">
-          <v-card-title>{{ announce.title }}</v-card-title>
-          <v-card-subtitle class="grey--text">
-            {{ formatDate(announce.publicationDate) }}
-          </v-card-subtitle>
-          <v-card-text>{{ announce.body }}</v-card-text>
-          <v-card-actions v-if="announce.imageUrl">
-            <v-img
-              :src="announce.imageUrl"
-              max-width="100"
-              max-height="100"
-            ></v-img>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+          <!-- Sección de anuncios -->
+          <v-row>
+            <v-col cols="12" class="text-center">
+              <h1 class="mb-4">Avisos Recientes</h1>
+            </v-col>
+            <v-col cols="12">
+              <v-carousel
+                v-if="announcements.length > 0"
+                cycle
+                height="450"
+                hide-delimiter-background
+                show-arrows="hover"
+                class="rounded-lg elevation-4"
+              >
+                <v-carousel-item
+                  v-for="announce in announcements"
+                  :key="announce.id"
+                >
+                  <v-card class="d-flex flex-column h-100 rounded-lg">
+                    <v-img
+                      :src="announce.imageUrl || 'https://placehold.co/800x450/444444/FFFFFF?text=Sin+Imagen+para+Aviso'"
+                      height="250px"
+                      cover
+                      class="rounded-t-lg"
+                    >
+                      <v-row class="fill-height ma-0" align="end" justify="center">
+                        <v-card-title class="text-white text-h5 text-shadow-lg" style="background: rgba(0,0,0,0.5); width: 100%; padding: 16px;">
+                          {{ announce.title }}
+                        </v-card-title>
+                      </v-row>
+                    </v-img>
+                    <v-card-subtitle class="mt-2 text-grey-darken-1 text-right pr-4">
+                      Publicado: {{ formatDate(announce.publishedDate) }}
+                    </v-card-subtitle>
+                    <v-card-text class="flex-grow-1 text-body-1 text-grey-darken-2 px-4 py-2">
+                      {{ announce.body }}
+                    </v-card-text>
+                  </v-card>
+                </v-carousel-item>
+              </v-carousel>
+              <v-col v-else cols="12" class="text-center text-h6 text-grey-darken-1 py-10">
+                No hay avisos recientes disponibles.
+              </v-col>
+            </v-col>
+          </v-row>
 
-    <!-- Sección de catálogo de productos -->
-    <v-divider class="my-8"></v-divider>
-    <v-row>
-      <v-col cols="12" class="text-center">
-        <h1 class="mb-4">Catálogo de Productos</h1>
-      </v-col>
-      <v-col
-        v-for="product in products"
-        :key="product.id"
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <v-card class="mb-4">
-          <v-img
-            :src="product.imageUrl || defaultImage"
-            height="150"
-          ></v-img>
-          <v-card-title>{{ product.name }}</v-card-title>
-          <v-card-subtitle>
-            Precio: ₡ {{ product.price.toFixed(2) }}
-          </v-card-subtitle>
-          <v-card-text>
-            Cantidad Disponible: {{ product.quantity }}
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          <!-- Sección de catálogo de productos -->
+          <v-divider class="my-8"></v-divider>
+          <v-row>
+            <v-col cols="12" class="text-center">
+              <h1 class="mb-4">Catálogo de Productos</h1>
+            </v-col>
+            <v-col
+              v-for="product in products"
+              :key="product.id"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+            >
+              <v-card class="mx-auto my-4 rounded-lg elevation-3 d-flex flex-column h-100">
+                <v-img
+                  :src="product.imageUrl || 'https://placehold.co/300x200/E0E0E0/000000?text=No+Image'"
+                  height="180px"
+                  cover
+                  class="rounded-t-lg"
+                >
+                </v-img>
+                <v-card-title class="text-h6 font-weight-bold">
+                  {{ product.name }}
+                </v-card-title>
+                <v-card-subtitle class="d-flex flex-column align-start">
+                  <span class="text-caption text-grey-darken-1">Precio:</span>
+                  <span class="text-body-1 font-weight-medium">₡{{ product.price.toFixed(2) }}</span>
+                  <div class="mt-2">
+                    <v-chip
+                      :color="product.isAvailable ? 'green-darken-1' : 'red-darken-1'"
+                      label
+                      size="small"
+                      class="text-uppercase"
+                    >
+                      {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
+                    </v-chip>
+                    <v-chip
+                      v-if="product.quantity > 0"
+                      label
+                      size="small"
+                      class="ml-2 bg-blue-grey-lighten-4 text-blue-grey-darken-3"
+                    >
+                      Cant: {{ product.quantity }}
+                    </v-chip>
+                  </div>
+                </v-card-subtitle>
+                <v-card-text class="flex-grow-1 text-body-2 text-grey-darken-2">
+                  {{ product.description }}
+                </v-card-text>
+                <v-card-actions class="justify-end pt-0 pb-4 px-4">
+                  <!-- No edit/delete buttons in public facing HomeView -->
+                </v-card-actions>
+              </v-card>
+            </v-col>
+            <v-col v-if="products.length === 0" cols="12" class="text-center text-h6 text-grey-darken-1 py-10">
+              No hay productos disponibles.
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-app>
+          <v-footer
+            app
+            color="primary"
+            class="d-flex flex-column text-white py-6"
+          >
+            <v-container class="w-100">
+              <h2 class="text-h5 font-weight-bold mb-4 text-center">Contacto y Horarios</h2>
+              <v-row justify="center" class="text-center">
+                <!-- Teléfono -->
+                <v-col cols="12" sm="6" md="3" class="d-flex flex-column align-center mb-4 mb-md-0">
+                  <v-icon size="28" class="mb-2">mdi-phone</v-icon>
+                  <span class="font-weight-bold">Teléfono</span>
+                  <span>8888-8888</span>
+                </v-col>
+
+                <!-- Email -->
+                <v-col cols="12" sm="6" md="3" class="d-flex flex-column align-center mb-4 mb-md-0">
+                  <v-icon size="28" class="mb-2">mdi-email</v-icon>
+                  <span class="font-weight-bold">Email</span>
+                  <span>aecci@ucr.ac.cr</span>
+                </v-col>
+
+                <!-- Horario -->
+                <v-col cols="12" sm="6" md="3" class="d-flex flex-column align-center mb-4 mb-md-0">
+                  <v-icon size="28" class="mb-2">mdi-clock</v-icon>
+                  <span class="font-weight-bold">Horario</span>
+                  <span>Lun-Vie 08:00-21:00</span>
+                </v-col>
+
+                <!-- Ubicación -->
+                <v-col cols="12" sm="6" md="3" class="d-flex flex-column align-center">
+                  <v-icon size="28" class="mb-2">mdi-map-marker</v-icon>
+                  <span class="font-weight-bold">Ubicación</span>
+                  <span>2º piso, ECCI, UCR</span>
+                </v-col>
+              </v-row>
+
+              <v-divider class="my-6 border-opacity-50" />
+
+              <div class="text-center text-caption">
+                &copy; {{ new Date().getFullYear() }} AECCI. Todos los derechos reservados.
+              </div>
+            </v-container>
+          </v-footer>
+        </v-app>
 </template>
 
 <script>
@@ -73,7 +167,7 @@ export default {
 
     const formatDate = iso => {
       const d = new Date(iso)
-      return d.toLocaleString()
+      return d.toLocaleDateString()
     }
 
     const fetchAnnouncements = async () => {

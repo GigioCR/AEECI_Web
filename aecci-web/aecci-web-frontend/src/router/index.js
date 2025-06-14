@@ -4,7 +4,6 @@ import HomeViewAdmin from '@/views/HomeViewAdmin.vue'
 import LoginView       from '@/views/LoginForm.vue'
 import ProductListAdmin     from '@/components/products/ProductListAdmin.vue'
 import AnnouncementListAdmin from '@/components/announcements/AnnouncementListAdmin.vue'
-import InfoView        from '@/views/InfoView.vue'
 import { useAuthStore } from '@/store/auth'
 import SidebarLayout   from '@/layouts/SideBarLayout.vue'
 
@@ -32,11 +31,6 @@ const routes = [
         path: 'announcements',
         name: 'Announcements',
         component: AnnouncementListAdmin
-      },
-      {
-        path: 'info',
-        name: 'Info',
-        component: InfoView
       },
       {
         path: '',

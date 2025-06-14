@@ -1,17 +1,48 @@
 <template>
   <v-app>
     <!-- Sidebar -->
-    <v-navigation-drawer app permanent clipped>
+    <v-navigation-drawer
+      app
+      color="#5B6984"
+      rail
+      expand-on-hover
+      mini-variant-width="64"
+      width="320"
+    >
       <v-list dense>
-        <v-list-item :to="{ name: 'Products' }">
-          <v-list-item-title>Productos Disponibles</v-list-item-title>
+
+        <!-- Logo -->
+        <v-list-item>
+          <v-list-item-icon>
+            <v-img
+              src="@/assets/logo.png"
+              alt="Logo AECCI"
+              max-width="32"
+              contain
+            />
+          </v-list-item-icon>
         </v-list-item>
-        <v-list-item :to="{ name: 'Announcements' }">
-          <v-list-item-title>Anuncios</v-list-item-title>
+
+        <!-- Productos -->
+        <v-list-item :to="{ name: 'Products' }" ripple>
+          <template #prepend>
+            <svg-icon type="mdi" :path="mdiArchiveEdit" />
+          </template>
+          <v-list-item-content>
+            <v-list-item-title>Productos Disponibles</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'Info' }">
-          <v-list-item-title>Contacto y Horarios</v-list-item-title>
+
+        <!-- Anuncios -->
+        <v-list-item :to="{ name: 'Announcements' }" ripple>
+          <template #prepend>
+            <svg-icon type="mdi" :path="mdiBullhornOutline" />
+          </template>
+          <v-list-item-content>
+            <v-list-item-title>Anuncios</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -35,6 +66,9 @@
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiArchiveEdit, mdiBullhornOutline } from '@mdi/js'
+
 const router = useRouter()
 const auth = useAuthStore()
 
@@ -43,3 +77,13 @@ function logout() {
   router.push({ name: 'Home' })
 }
 </script>
+
+<style scoped>
+.v-list-item {
+  justify-content: center;
+}
+
+.v-list-item-content {
+  padding-left: 16px;
+}
+</style>

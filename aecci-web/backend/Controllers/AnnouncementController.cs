@@ -31,7 +31,8 @@ namespace AecciWeb.Controllers
                 Title = a.Title,
                 Body = a.Body,
                 ImageUrl = a.ImageUrl,
-                IsUp = a.IsUp
+                IsUp = a.IsUp,
+                PublishedDate = a.PublishedDate
             });
 
             return Ok(result);
@@ -50,7 +51,8 @@ namespace AecciWeb.Controllers
                 Title = a.Title,
                 Body = a.Body,
                 ImageUrl = a.ImageUrl,
-                IsUp = a.IsUp
+                IsUp = a.IsUp,
+                PublishedDate = a.PublishedDate
             });
 
             return Ok(result);
@@ -73,7 +75,8 @@ namespace AecciWeb.Controllers
                 Id = announcement.Id,
                 Title = announcement.Title,
                 Body = announcement.Body,
-                ImageUrl = announcement.ImageUrl
+                ImageUrl = announcement.ImageUrl,
+                PublishedDate = announcement.PublishedDate
             };
 
             return Ok(readDto);
