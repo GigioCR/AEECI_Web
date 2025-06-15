@@ -5,7 +5,6 @@
       <v-spacer />
       <v-btn v-if="!auth.isAuthenticated" text to="/">Inicio</v-btn>
       
-      <!-- Conditional rendering for Login/Cerrar Sesión -->
       <v-btn v-if="!auth.isAuthenticated" text @click="router.push({ name: 'Login' })">Login</v-btn>
       <v-btn v-else text @click="logout()">Cerrar Sesión</v-btn>
     </v-app-bar>

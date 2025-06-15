@@ -114,8 +114,7 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiDelete, mdiPackageVariant } from '@mdi/js';
-  import { mdiPencilOutline } from '@mdi/js';
+  import { mdiDelete, mdiPackageVariant, mdiPencilOutline } from '@mdi/js';
   import api from '@/services/api'
 
   const products = ref([])

@@ -22,7 +22,7 @@ namespace AecciWeb.Controllers
         {
             var announcements = await _context.Announcements
                 .AsNoTracking()
-                .Where(a => a.IsUp == true)
+                .Where(a => a.IsUp)
                 .ToListAsync();
 
             var result = announcements.Select(a => new AnnouncementReadDto

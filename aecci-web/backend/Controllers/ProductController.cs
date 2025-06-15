@@ -1,5 +1,4 @@
-﻿// Controllers/ProductsController.cs
-using AecciWeb.DTOs;
+﻿using AecciWeb.DTOs;
 using AecciWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
