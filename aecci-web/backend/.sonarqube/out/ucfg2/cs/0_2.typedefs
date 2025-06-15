@@ -1,0 +1,198 @@
+1
+Programobject
+	Program()Program.Program()È
+#AecciWeb.DTOs.AnnouncementCreateDtoobjectV
+AnnouncementCreateDto();AecciWeb.DTOs.AnnouncementCreateDto.AnnouncementCreateDto():
+	Title.get-AecciWeb.DTOs.AnnouncementCreateDto.Title.get:
+	Title.set-AecciWeb.DTOs.AnnouncementCreateDto.Title.set8
+Body.get,AecciWeb.DTOs.AnnouncementCreateDto.Body.get8
+Body.set,AecciWeb.DTOs.AnnouncementCreateDto.Body.set@
+ImageUrl.get0AecciWeb.DTOs.AnnouncementCreateDto.ImageUrl.get@
+ImageUrl.set0AecciWeb.DTOs.AnnouncementCreateDto.ImageUrl.set8
+IsUp.get,AecciWeb.DTOs.AnnouncementCreateDto.IsUp.get8
+IsUp.set,AecciWeb.DTOs.AnnouncementCreateDto.IsUp.set˘
+AecciWeb.Models.Announcementobject=
+Announcement()+AecciWeb.Models.Announcement.Announcement()-
+Id.get#AecciWeb.Models.Announcement.Id.get-
+Id.set#AecciWeb.Models.Announcement.Id.set3
+	Title.get&AecciWeb.Models.Announcement.Title.get3
+	Title.set&AecciWeb.Models.Announcement.Title.set1
+Body.get%AecciWeb.Models.Announcement.Body.get1
+Body.set%AecciWeb.Models.Announcement.Body.set9
+ImageUrl.get)AecciWeb.Models.Announcement.ImageUrl.get9
+ImageUrl.set)AecciWeb.Models.Announcement.ImageUrl.set1
+IsUp.get%AecciWeb.Models.Announcement.IsUp.get1
+IsUp.set%AecciWeb.Models.Announcement.IsUp.setC
+PublishedDate.get.AecciWeb.Models.Announcement.PublishedDate.getC
+PublishedDate.set.AecciWeb.Models.Announcement.PublishedDate.setÈ
+#AecciWeb.DTOs.AnnouncementUpdateDtoobjectV
+AnnouncementUpdateDto();AecciWeb.DTOs.AnnouncementUpdateDto.AnnouncementUpdateDto():
+	Title.get-AecciWeb.DTOs.AnnouncementUpdateDto.Title.get:
+	Title.set-AecciWeb.DTOs.AnnouncementUpdateDto.Title.set8
+Body.get,AecciWeb.DTOs.AnnouncementUpdateDto.Body.get8
+Body.set,AecciWeb.DTOs.AnnouncementUpdateDto.Body.set@
+ImageUrl.get0AecciWeb.DTOs.AnnouncementUpdateDto.ImageUrl.get@
+ImageUrl.set0AecciWeb.DTOs.AnnouncementUpdateDto.ImageUrl.set8
+IsUp.get,AecciWeb.DTOs.AnnouncementUpdateDto.IsUp.get8
+IsUp.set,AecciWeb.DTOs.AnnouncementUpdateDto.IsUp.set•
+AecciWeb.DTOs.LoginDtoobject/
+
+LoginDto()!AecciWeb.DTOs.LoginDto.LoginDto()3
+Username.get#AecciWeb.DTOs.LoginDto.Username.get3
+Username.set#AecciWeb.DTOs.LoginDto.Username.set3
+Password.get#AecciWeb.DTOs.LoginDto.Password.get3
+Password.set#AecciWeb.DTOs.LoginDto.Password.set√
+AecciWeb.DTOs.ProductCreateDtoobjectG
+ProductCreateDto()1AecciWeb.DTOs.ProductCreateDto.ProductCreateDto()3
+Name.get'AecciWeb.DTOs.ProductCreateDto.Name.get3
+Name.set'AecciWeb.DTOs.ProductCreateDto.Name.setA
+Description.get.AecciWeb.DTOs.ProductCreateDto.Description.getA
+Description.set.AecciWeb.DTOs.ProductCreateDto.Description.set5
+	Price.get(AecciWeb.DTOs.ProductCreateDto.Price.get5
+	Price.set(AecciWeb.DTOs.ProductCreateDto.Price.set;
+Quantity.get+AecciWeb.DTOs.ProductCreateDto.Quantity.get;
+Quantity.set+AecciWeb.DTOs.ProductCreateDto.Quantity.set;
+ImageUrl.get+AecciWeb.DTOs.ProductCreateDto.ImageUrl.get;
+ImageUrl.set+AecciWeb.DTOs.ProductCreateDto.ImageUrl.set√
+AecciWeb.DTOs.ImageUploadDtoobjectA
+ImageUploadDto()-AecciWeb.DTOs.ImageUploadDto.ImageUploadDto()7
+OwnerId.get(AecciWeb.DTOs.ImageUploadDto.OwnerId.get7
+OwnerId.set(AecciWeb.DTOs.ImageUploadDto.OwnerId.set;
+OwnerType.get*AecciWeb.DTOs.ImageUploadDto.OwnerType.get;
+OwnerType.set*AecciWeb.DTOs.ImageUploadDto.OwnerType.set5
+
+Images.get'AecciWeb.DTOs.ImageUploadDto.Images.get5
+
+Images.set'AecciWeb.DTOs.ImageUploadDto.Images.setÕ
+!AecciWeb.DTOs.AnnouncementReadDtoobjectP
+AnnouncementReadDto()7AecciWeb.DTOs.AnnouncementReadDto.AnnouncementReadDto()2
+Id.get(AecciWeb.DTOs.AnnouncementReadDto.Id.get2
+Id.set(AecciWeb.DTOs.AnnouncementReadDto.Id.set8
+	Title.get+AecciWeb.DTOs.AnnouncementReadDto.Title.get8
+	Title.set+AecciWeb.DTOs.AnnouncementReadDto.Title.set6
+Body.get*AecciWeb.DTOs.AnnouncementReadDto.Body.get6
+Body.set*AecciWeb.DTOs.AnnouncementReadDto.Body.set>
+ImageUrl.get.AecciWeb.DTOs.AnnouncementReadDto.ImageUrl.get>
+ImageUrl.set.AecciWeb.DTOs.AnnouncementReadDto.ImageUrl.set6
+IsUp.get*AecciWeb.DTOs.AnnouncementReadDto.IsUp.get6
+IsUp.set*AecciWeb.DTOs.AnnouncementReadDto.IsUp.setH
+PublishedDate.get3AecciWeb.DTOs.AnnouncementReadDto.PublishedDate.getH
+PublishedDate.set3AecciWeb.DTOs.AnnouncementReadDto.PublishedDate.set±
+AecciWeb.Models.Productobject.
+	Product()!AecciWeb.Models.Product.Product()(
+Id.getAecciWeb.Models.Product.Id.get(
+Id.setAecciWeb.Models.Product.Id.set,
+Name.get AecciWeb.Models.Product.Name.get,
+Name.set AecciWeb.Models.Product.Name.set:
+Description.get'AecciWeb.Models.Product.Description.get:
+Description.set'AecciWeb.Models.Product.Description.set.
+	Price.get!AecciWeb.Models.Product.Price.get.
+	Price.set!AecciWeb.Models.Product.Price.set4
+Quantity.get$AecciWeb.Models.Product.Quantity.get4
+Quantity.set$AecciWeb.Models.Product.Quantity.set4
+ImageUrl.get$AecciWeb.Models.Product.ImageUrl.get4
+ImageUrl.set$AecciWeb.Models.Product.ImageUrl.setÖ
+AecciWeb.DTOs.ProductReadDtoobjectA
+ProductReadDto()-AecciWeb.DTOs.ProductReadDto.ProductReadDto()-
+Id.get#AecciWeb.DTOs.ProductReadDto.Id.get-
+Id.set#AecciWeb.DTOs.ProductReadDto.Id.set1
+Name.get%AecciWeb.DTOs.ProductReadDto.Name.get1
+Name.set%AecciWeb.DTOs.ProductReadDto.Name.set?
+Description.get,AecciWeb.DTOs.ProductReadDto.Description.get?
+Description.set,AecciWeb.DTOs.ProductReadDto.Description.set3
+	Price.get&AecciWeb.DTOs.ProductReadDto.Price.get3
+	Price.set&AecciWeb.DTOs.ProductReadDto.Price.set9
+Quantity.get)AecciWeb.DTOs.ProductReadDto.Quantity.get9
+Quantity.set)AecciWeb.DTOs.ProductReadDto.Quantity.set9
+ImageUrl.get)AecciWeb.DTOs.ProductReadDto.ImageUrl.get9
+ImageUrl.set)AecciWeb.DTOs.ProductReadDto.ImageUrl.set˚
+#AecciWeb.Controllers.ImageUploadDtoobjectH
+ImageUploadDto()4AecciWeb.Controllers.ImageUploadDto.ImageUploadDto()>
+OwnerId.get/AecciWeb.Controllers.ImageUploadDto.OwnerId.get>
+OwnerId.set/AecciWeb.Controllers.ImageUploadDto.OwnerId.setB
+OwnerType.get1AecciWeb.Controllers.ImageUploadDto.OwnerType.getB
+OwnerType.set1AecciWeb.Controllers.ImageUploadDto.OwnerType.set<
+
+Images.get.AecciWeb.Controllers.ImageUploadDto.Images.get<
+
+Images.set.AecciWeb.Controllers.ImageUploadDto.Images.set√
+AecciWeb.DTOs.ProductUpdateDtoobjectG
+ProductUpdateDto()1AecciWeb.DTOs.ProductUpdateDto.ProductUpdateDto()3
+Name.get'AecciWeb.DTOs.ProductUpdateDto.Name.get3
+Name.set'AecciWeb.DTOs.ProductUpdateDto.Name.setA
+Description.get.AecciWeb.DTOs.ProductUpdateDto.Description.getA
+Description.set.AecciWeb.DTOs.ProductUpdateDto.Description.set5
+	Price.get(AecciWeb.DTOs.ProductUpdateDto.Price.get5
+	Price.set(AecciWeb.DTOs.ProductUpdateDto.Price.set;
+Quantity.get+AecciWeb.DTOs.ProductUpdateDto.Quantity.get;
+Quantity.set+AecciWeb.DTOs.ProductUpdateDto.Quantity.set;
+ImageUrl.get+AecciWeb.DTOs.ProductUpdateDto.ImageUrl.get;
+ImageUrl.set+AecciWeb.DTOs.ProductUpdateDto.ImageUrl.setµ
+AecciWeb.DTOs.StoreStatusDtoobjectA
+StoreStatusDto()-AecciWeb.DTOs.StoreStatusDto.StoreStatusDto()-
+Id.get#AecciWeb.DTOs.StoreStatusDto.Id.get-
+Id.set#AecciWeb.DTOs.StoreStatusDto.Id.set5
+
+IsOpen.get'AecciWeb.DTOs.StoreStatusDto.IsOpen.get5
+
+IsOpen.set'AecciWeb.DTOs.StoreStatusDto.IsOpen.set©
+AecciWeb.Models.StoreStatusobject:
+StoreStatus())AecciWeb.Models.StoreStatus.StoreStatus(),
+Id.get"AecciWeb.Models.StoreStatus.Id.get,
+Id.set"AecciWeb.Models.StoreStatus.Id.set4
+
+IsOpen.get&AecciWeb.Models.StoreStatus.IsOpen.get4
+
+IsOpen.set&AecciWeb.Models.StoreStatus.IsOpen.set·
+AecciWeb.DTOs.TokenResponseDtoobjectG
+TokenResponseDto()1AecciWeb.DTOs.TokenResponseDto.TokenResponseDto()5
+	Token.get(AecciWeb.DTOs.TokenResponseDto.Token.get5
+	Token.set(AecciWeb.DTOs.TokenResponseDto.Token.set?
+Expiration.get-AecciWeb.DTOs.TokenResponseDto.Expiration.get?
+Expiration.set-AecciWeb.DTOs.TokenResponseDto.Expiration.setŸ
+AecciWeb.Models.Userobject%
+User()AecciWeb.Models.User.User()%
+Id.getAecciWeb.Models.User.Id.get%
+Id.setAecciWeb.Models.User.Id.set1
+Username.get!AecciWeb.Models.User.Username.get1
+Username.set!AecciWeb.Models.User.Username.set9
+PasswordHash.get%AecciWeb.Models.User.PasswordHash.get9
+PasswordHash.set%AecciWeb.Models.User.PasswordHash.set3
+CreatedAt.get"AecciWeb.Models.User.CreatedAt.get3
+CreatedAt.set"AecciWeb.Models.User.CreatedAt.setâ
+'AecciWeb.Controllers.ProductsController'Microsoft.AspNetCore.Mvc.ControllerBaseobjectú
+8ProductsController(AecciWeb.Models.ApplicationDbContext)`AecciWeb.Controllers.ProductsController.ProductsController(AecciWeb.Models.ApplicationDbContext)L
+GetAllProducts()8AecciWeb.Controllers.ProductsController.GetAllProducts()R
+GetProductById(int);AecciWeb.Controllers.ProductsController.GetProductById(int)Ü
+-CreateProduct(AecciWeb.DTOs.ProductCreateDto)UAecciWeb.Controllers.ProductsController.CreateProduct(AecciWeb.DTOs.ProductCreateDto)ê
+2UpdateProduct(int, AecciWeb.DTOs.ProductUpdateDto)ZAecciWeb.Controllers.ProductsController.UpdateProduct(int, AecciWeb.DTOs.ProductUpdateDto)P
+DeleteProduct(int):AecciWeb.Controllers.ProductsController.DeleteProduct(int)ﬂ
+,AecciWeb.Controllers.AnnouncementsController'Microsoft.AspNetCore.Mvc.ControllerBaseobject´
+=AnnouncementsController(AecciWeb.Models.ApplicationDbContext)jAecciWeb.Controllers.AnnouncementsController.AnnouncementsController(AecciWeb.Models.ApplicationDbContext)a
+GetActiveAnnouncements()EAecciWeb.Controllers.AnnouncementsController.GetActiveAnnouncements()[
+GetAllAnnouncements()BAecciWeb.Controllers.AnnouncementsController.GetAllAnnouncements()a
+GetAnnouncementById(int)EAecciWeb.Controllers.AnnouncementsController.GetAnnouncementById(int)ü
+7CreateAnnouncement(AecciWeb.DTOs.AnnouncementCreateDto)dAecciWeb.Controllers.AnnouncementsController.CreateAnnouncement(AecciWeb.DTOs.AnnouncementCreateDto)©
+<UpdateAnnouncement(int, AecciWeb.DTOs.AnnouncementUpdateDto)iAecciWeb.Controllers.AnnouncementsController.UpdateAnnouncement(int, AecciWeb.DTOs.AnnouncementUpdateDto)_
+DeleteAnnouncement(int)DAecciWeb.Controllers.AnnouncementsController.DeleteAnnouncement(int)õ
+(AecciWeb.Controllers.ImageFileController'Microsoft.AspNetCore.Mvc.ControllerBaseobject∑
+EImageFileController(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)nAecciWeb.Controllers.ImageFileController.ImageFileController(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)É
++Upload(AecciWeb.Controllers.ImageUploadDto)TAecciWeb.Controllers.ImageFileController.Upload(AecciWeb.Controllers.ImageUploadDto)“
+*AecciWeb.Controllers.StoreStatusController'Microsoft.AspNetCore.Mvc.ControllerBaseobject•
+;StoreStatusController(AecciWeb.Models.ApplicationDbContext)fAecciWeb.Controllers.StoreStatusController.StoreStatusController(AecciWeb.Models.ApplicationDbContext)E
+GetStatus()6AecciWeb.Controllers.StoreStatusController.GetStatus()É
+*UpdateStatus(AecciWeb.DTOs.StoreStatusDto)UAecciWeb.Controllers.StoreStatusController.UpdateStatus(AecciWeb.DTOs.StoreStatusDto)¥
+#AecciWeb.Controllers.AuthController'Microsoft.AspNetCore.Mvc.ControllerBaseobject˜
+gAuthController(AecciWeb.Models.ApplicationDbContext, Microsoft.Extensions.Configuration.IConfiguration)ãAecciWeb.Controllers.AuthController.AuthController(AecciWeb.Models.ApplicationDbContext, Microsoft.Extensions.Configuration.IConfiguration)b
+Login(AecciWeb.DTOs.LoginDto)AAecciWeb.Controllers.AuthController.Login(AecciWeb.DTOs.LoginDto)¶
+$AecciWeb.Models.ApplicationDbContext'Microsoft.EntityFrameworkCore.DbContextobject˛
+jApplicationDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<AecciWeb.Models.ApplicationDbContext>)èAecciWeb.Models.ApplicationDbContext.ApplicationDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<AecciWeb.Models.ApplicationDbContext>)ü
+;OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)`AecciWeb.Models.ApplicationDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)A
+Products.get1AecciWeb.Models.ApplicationDbContext.Products.getA
+Products.set1AecciWeb.Models.ApplicationDbContext.Products.setK
+Announcements.get6AecciWeb.Models.ApplicationDbContext.Announcements.getK
+Announcements.set6AecciWeb.Models.ApplicationDbContext.Announcements.set;
+	Users.get.AecciWeb.Models.ApplicationDbContext.Users.get;
+	Users.set.AecciWeb.Models.ApplicationDbContext.Users.setG
+StoreStatus.get4AecciWeb.Models.ApplicationDbContext.StoreStatus.getG
+StoreStatus.set4AecciWeb.Models.ApplicationDbContext.StoreStatus.set
