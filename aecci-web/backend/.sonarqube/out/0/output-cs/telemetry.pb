@@ -1,0 +1,1 @@
+aRKC:\Users\alepa\OneDrive\Desktop\AEECI_Web\aecci-web\backend\AecciWeb.csproj¢net8.0òCSharp12

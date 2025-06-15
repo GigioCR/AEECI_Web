@@ -1,0 +1,13 @@
+{"dotnetenterprise.s4net.params.sonar_projectbasedir.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_projectbasedir.value":"rooted"}
+{"dotnetenterprise.s4net.params.sonar_sources.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_sourceencoding.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_sourceencoding.value":"UTF-8"}
+{"dotnetenterprise.s4net.params.sonar_exclusions.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_language.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_cs_opencover_reportspaths.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_cs_vstest_reportspaths.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_cs_vstest_reportspaths.value":"relative"}
+{"dotnetenterprise.s4net.serverInfo.region":"default"}
+{"dotnetenterprise.s4net.serverInfo.product":"SQ_Cloud"}
+{"dotnetenterprise.s4net.serverInfo.serverUrl":"https://sonarcloud.io"}
