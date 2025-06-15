@@ -1,11 +1,19 @@
 <template>
   <v-container>
     <v-card flat class="pa-4">
-      <v-card-title class="d-flex align-center mb-4">
-        <svg-icon type="mdi" :path="mdiBullhorn"></svg-icon>
-        <span class="text-h5 font-weight-bold">Gestión de Avisos</span>
-        <v-spacer />
-        <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg">Nuevo Aviso</v-btn>
+      <v-card-title class="mb-4">
+        <v-row class="align-center" no-gutters>
+          <v-col cols="12" sm="auto" class="d-flex align-center">
+            <svg-icon type="mdi" :path="mdiBullhorn"></svg-icon>
+            <span class="text-h5 font-weight-bold ml-2">Gestión de Avisos</span>
+          </v-col>
+          <v-spacer class="d-none d-sm-flex"/>
+          <v-col cols="12" sm="auto" class="mt-2 mt-sm-0 d-flex justify-end">
+            <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg w-100 w-sm-auto">
+              Nuevo Aviso
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-title>
       <v-divider class="my-4" />
 
