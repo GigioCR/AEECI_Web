@@ -1,14 +1,19 @@
 <template>
   <v-app>
-    <!-- Sidebar -->
+    <v-app-bar v-if="display.smAndDown" app color="#5B6984" class="text-white">
+      <v-btn icon @click="drawer = !drawer">
+        <svg-icon type="mdi" :path="mdiMenu" class="text-white" />
+      </v-btn>
+      <v-toolbar-title class="font-weight-bold"></v-toolbar-title>
+      </v-app-bar>
+
     <v-navigation-drawer
-      app
-      color="#5B6984"
-      rail
-      expand-on-hover
-      mini-variant-width="64"
+      v-model="drawer"
+      :permanent="display.mdAndUp"       :temporary="display.smAndDown"     :expand-on-hover="display.mdAndUp" :rail="display.mdAndUp"            mini-variant-width="64"
       width="320"
+      color="#5B6984"
       class="text-white"
+      app
     >
       <v-list dense nav>
         <v-list-item class="d-flex align-center">
@@ -21,12 +26,11 @@
               />
             </v-avatar>
           </template>
-          <v-list-item-title class="ml-2 font-weight-bold text-h6">AECCI Admin</v-list-item-title>
+          <v-list-item-title class="ml-2 font-weight-bold text-h6">AECCI ADMIN</v-list-item-title>
         </v-list-item>
 
         <v-divider class="my-2 border-opacity-50" />
 
-        <!-- Productos -->
         <v-list-item :to="{ name: 'Products' }" ripple link color="blue-lighten-2">
           <template #prepend>
             <svg-icon type="mdi" :path="mdiArchiveEdit" />
@@ -36,7 +40,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- Anuncios -->
         <v-list-item :to="{ name: 'Announcements' }" ripple link color="blue-lighten-2">
           <template #prepend>
             <svg-icon type="mdi" :path="mdiBullhornOutline" />
@@ -46,7 +49,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- Estado de la Tienda -->
         <v-list-item @click="openStatusDialog" ripple link color="blue-lighten-2">
           <template #prepend>
             <svg-icon type="mdi" :path="mdiStore" />
@@ -58,14 +60,12 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- Main Content -->
     <v-main>
       <v-container fluid>
         <router-view />
       </v-container>
     </v-main>
 
-    <!-- Confirm Dialog -->
     <v-dialog v-model="confirmDialog" max-width="400">
       <v-card>
         <v-card-title class="headline">Cambiar estado de la tienda</v-card-title>
@@ -80,7 +80,6 @@
       </v-card>
     </v-dialog>
 
-    <!-- Result Dialog -->
     <v-dialog v-model="resultDialog" max-width="400">
       <v-card>
         <v-card-title class="headline">Estado Actualizado</v-card-title>
@@ -97,55 +96,61 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiArchiveEdit, mdiBullhornOutline, mdiStore } from '@mdi/js'
-import aecci_logo from '@/assets/aecci_logo.png'
-import api from '@/services/api'
+import { ref, onMounted } from 'vue';
+import { useDisplay } from 'vuetify';
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiArchiveEdit, mdiBullhornOutline, mdiStore, mdiMenu } from '@mdi/js';
+import aecci_logo from '@/assets/aecci_logo.png';
+import api from '@/services/api';
 
 // Reactive state
-const isStoreOpen = ref(false)
-const isLoadingStatus = ref(true)
-const confirmDialog = ref(false)
-const resultDialog = ref(false)
+const drawer = ref(null);
+const isStoreOpen = ref(false);
+const isLoadingStatus = ref(true);
+const confirmDialog = ref(false);
+const resultDialog = ref(false);
+
+// Vuetify display composable
+const display = useDisplay();
 
 // Fetch current store status
 const fetchStoreStatus = async () => {
-  isLoadingStatus.value = true
+  isLoadingStatus.value = true;
   try {
-    const res = await api.get('/StoreStatus')
+    const res = await api.get('/StoreStatus');
     if (res.data && typeof res.data.isOpen === 'boolean') {
-      isStoreOpen.value = res.data.isOpen
+      isStoreOpen.value = res.data.isOpen;
     }
   } catch (e) {
-    console.error('Error al cargar estado de tienda:', e)
+    console.error('Error al cargar estado de tienda:', e);
   } finally {
-    isLoadingStatus.value = false
+    isLoadingStatus.value = false;
   }
-}
+};
 
 // Open confirmation dialog
 const openStatusDialog = () => {
-  // Ensure current status fresh
-  fetchStoreStatus()
-  confirmDialog.value = true
-}
+  fetchStoreStatus();
+  confirmDialog.value = true;
+};
 
 // Toggle status via backend
 const toggleStoreStatus = async () => {
-  confirmDialog.value = false
+  confirmDialog.value = false;
   try {
-    await api.put('/StoreStatus', { id: 1, isOpen: !isStoreOpen.value })
-    // Update local state
-    isStoreOpen.value = !isStoreOpen.value
-    resultDialog.value = true
+    await api.put('/StoreStatus', { id: 1, isOpen: !isStoreOpen.value });
+    isStoreOpen.value = !isStoreOpen.value;
+    resultDialog.value = true;
   } catch (e) {
-    console.error('Error al cambiar estado de tienda:', e)
+    console.error('Error al cambiar estado de tienda:', e);
   }
-}
+};
 
 // On mount, load status
-onMounted(fetchStoreStatus)
+onMounted(() => {
+  fetchStoreStatus();
+  drawer.value = display.mdAndUp.value; // Drawer is open by default on larger screens
+});
 </script>
 
 <style scoped>

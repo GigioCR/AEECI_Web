@@ -1,13 +1,19 @@
 <template>
   <v-container>
     <v-card flat class="pa-4">
-      <v-card-title class="d-flex align-center mb-4">
-        <svg-icon type="mdi" :path="mdiPackageVariant"></svg-icon>
-        <span class="text-h5 font-weight-bold">Inventario de Productos</span>
-        <v-spacer />
-        <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg">
-          Nuevo Producto
-        </v-btn>
+      <v-card-title class="mb-4">
+        <v-row class="align-center" no-gutters>
+          <v-col cols="12" sm="auto" class="d-flex align-center">
+            <svg-icon type="mdi" :path="mdiPackageVariant"></svg-icon>
+            <span class="text-h5 font-weight-bold ml-2">Inventario de Productos</span>
+          </v-col>
+          <v-spacer class="d-none d-sm-flex"/>
+          <v-col cols="12" sm="auto" class="mt-2 mt-sm-0 d-flex justify-end">
+            <v-btn color="primary" @click="openDialog()" class="px-4 py-2 rounded-lg w-100 w-sm-auto">
+              Nuevo Producto
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-title>
 
       <v-divider class="my-4" />
