@@ -84,8 +84,7 @@
   import { ref, onMounted } from 'vue'
   import api from '@/services/api'
   import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiBullhorn, mdiDelete } from '@mdi/js';
-  import { mdiPencilOutline } from '@mdi/js';
+  import { mdiBullhorn, mdiDelete, mdiPencilOutline } from '@mdi/js';
 
   const announcements = ref([])
   const isLoadingAnnouncements = ref(true)
