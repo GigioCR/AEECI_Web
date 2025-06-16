@@ -31,14 +31,10 @@ jobs:
       - name: Test and collect coverage
         run: dotnet test aecci-web/AecciWeb.Tests/AecciWeb.Tests.csproj --collect:"XPlat Code Coverage"
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: '**/coverage.cobertura.xml'
-          
-      - name: List coverage files
-        run: find . -name 'coverage.cobertura.xml'
+      - name: Move coverage report to fixed location
+        run: |
+          mkdir -p coverage
+          find . -name 'coverage.cobertura.xml' -exec cp {} ./coverage/coverage.cobertura.xml \;
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -46,6 +42,6 @@ jobs:
           args: >
             -Dsonar.projectKey=GigioCR_AEECI_Web
             -Dsonar.organization=gigiocr
-            -Dsonar.coverageReportPaths=aecci-web/AecciWeb.Tests/TestResults/**/coverage.cobertura.xml
+            -Dsonar.coverageReportPaths=coverage/coverage.cobertura.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
