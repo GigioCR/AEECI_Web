@@ -36,6 +36,9 @@ jobs:
         with:
           name: coverage-report
           path: '**/coverage.cobertura.xml'
+          
+      - name: List coverage files
+        run: find . -name 'coverage.cobertura.xml'
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
