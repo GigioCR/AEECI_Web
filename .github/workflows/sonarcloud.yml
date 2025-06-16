@@ -38,3 +38,5 @@ jobs:
             -Dsonar.coverageReportPaths=**/coverage.cobertura.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: GigioCR_AEECI_Web
+          SONAR_ORGANIZATION: gigiocr
