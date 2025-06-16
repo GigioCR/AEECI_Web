@@ -20,16 +20,16 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x' # or your .NET version
+          dotnet-version: '8.0.x'
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore aecci-web/backend/AecciWeb.csproj
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build aecci-web/backend/AecciWeb.csproj --no-restore
 
-      - name: Run tests and collect coverage
-        run: dotnet test --collect:"XPlat Code Coverage"
+      - name: Test and collect coverage
+        run: dotnet test aecci-web/AecciWeb.Tests/AecciWeb.Tests.csproj --collect:"XPlat Code Coverage"
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -38,6 +38,3 @@ jobs:
             -Dsonar.coverageReportPaths=**/coverage.cobertura.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          # Add these if needed for your project:
-          # SONAR_PROJECT_KEY: <your-project-key>
-          # SONAR_ORGANIZATION: <your-org>
