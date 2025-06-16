@@ -39,7 +39,6 @@ export default {
     const fetchProducts = async () => {
       try {
         const res = await api.get('/Products')
-        // filtrar solo disponibles si lo deseas:
         products.value = res.data.filter(p => p.isAvailable)
       } catch (e) {
         console.error('No se pudo cargar los productos', e)

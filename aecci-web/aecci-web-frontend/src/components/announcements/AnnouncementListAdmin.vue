@@ -17,12 +17,12 @@
       </v-card-title>
       <v-divider class="my-4" />
 
-      <!-- Loading Indicator -->
+      <!-- Cargando -->
       <v-row v-if="isLoadingAnnouncements" class="justify-center align-center" style="min-height: 400px;">
         <v-progress-circular indeterminate color="primary" size="64" />
       </v-row>
 
-      <!-- Announcement Cards Layout -->
+      <!-- Anuncios-->
       <v-row v-else-if="announcements.length > 0">
         <v-col v-for="announcement in announcements" :key="announcement.id" cols="12" sm="6" md="4" lg="3">
           <v-card class="mx-auto my-4 rounded-lg elevation-3 d-flex flex-column h-100">
@@ -33,7 +33,7 @@
               <span class="text-body-1 font-weight-medium">{{ formatDate(announcement.publishedDate) }}</span>
             </v-card-subtitle>
             <v-card-text class="flex-grow-1 text-body-2 text-grey-darken-2">{{ announcement.body }}</v-card-text>
-            <v-card-actions class="justify-end pt-0 pb-4 px-4">
+            <v-card-actions class="justify-center pt-0 pb-4 px-4">
               <v-btn color="blue-darken-1" variant="tonal" size="small" class="mr-2" @click="editAnnouncement(announcement)">
                 <svg-icon type="mdi" :path="mdiPencilOutline"></svg-icon>
                 Editar

@@ -55,7 +55,7 @@
               {{ product.description }}
             </v-card-text>
 
-            <v-card-actions class="justify-end pt-0 pb-4 px-4">
+            <v-card-actions class="justify-center pt-0 pb-4 px-4">
               <v-btn color="blue-darken-1" variant="tonal" size="small" class="mr-2" @click="editProduct(product)">
                 <svg-icon type="mdi" :path="mdiPencilOutline"></svg-icon>
                 Editar
@@ -127,7 +127,7 @@
   const dialog = ref(false)
   const isValid = ref(false)
   const isLoadingProducts = ref(true)
-  const confirmDeleteDialog = ref(false) // New: For delete confirmation modal
+  const confirmDeleteDialog = ref(false)
   const productToDeleteId = ref(null)  
   const form = ref(null)
   const editedIndex = ref(-1)
@@ -182,15 +182,14 @@
   }
 
   function deleteProduct(id) {
-    productToDeleteId.value = id; // Store the ID of the product to delete
+    productToDeleteId.value = id;
     const product = products.value.find(p => p.id === id);
     if (product) {
-      editedItem.value.name = product.name; // Display product name in confirmation dialog
+      editedItem.value.name = product.name;
     }
-    confirmDeleteDialog.value = true; // Open the confirmation dialog
+    confirmDeleteDialog.value = true;
   }
 
-  // Function to confirm and proceed with deletion
   async function confirmDelete() {
     try {
       await api.delete(`/products/${productToDeleteId.value}`);
@@ -199,15 +198,14 @@
     } catch (e) {
       console.error('Error al eliminar producto:', e);
     } finally {
-      cancelDelete(); // Always close the dialog and reset ID
+      cancelDelete();
     }
   }
 
-  // Function to cancel deletion
   function cancelDelete() {
-    confirmDeleteDialog.value = false; // Close the confirmation dialog
-    productToDeleteId.value = null; // Reset the stored ID
-    editedItem.value.name = ''; // Clear name used for confirmation
+    confirmDeleteDialog.value = false;
+    productToDeleteId.value = null;
+    editedItem.value.name = ''; 
   }
 
 function closeDialog() {
