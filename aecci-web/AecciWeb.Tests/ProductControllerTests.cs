@@ -88,7 +88,7 @@ namespace AecciWeb.Tests
                 Description = "Desc",
                 Price = 9.99M,
                 Quantity = 7,
-                ImageUrl = null // should fallback to default placeholder
+                ImageUrl = null
             };
 
             // Act
@@ -119,7 +119,7 @@ namespace AecciWeb.Tests
                 Description = "UpdatedDesc",
                 Price = 99.99M,
                 Quantity = 99,
-                ImageUrl = null // should keep original
+                ImageUrl = null
             };
 
             // Act
@@ -129,7 +129,7 @@ namespace AecciWeb.Tests
             Assert.IsType<NoContentResult>(result);
             var updated = context.Products.Find(prod.Id)!;
             Assert.Equal("Updated", updated.Name);
-            Assert.Equal("img", updated.ImageUrl); // unchanged
+            Assert.Equal("img", updated.ImageUrl);
         }
 
         [Fact]

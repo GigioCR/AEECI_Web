@@ -1,15 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar v-if="display.smAndDown" app color="#5B6984" class="text-white">
-      <v-btn icon @click="drawer = !drawer">
-        <svg-icon type="mdi" :path="mdiMenu" class="text-white" />
-      </v-btn>
-      <v-toolbar-title class="font-weight-bold"></v-toolbar-title>
-      </v-app-bar>
-
     <v-navigation-drawer
       v-model="drawer"
-      :permanent="display.mdAndUp"       :temporary="display.smAndDown"     :expand-on-hover="display.mdAndUp" :rail="display.mdAndUp"            mini-variant-width="64"
+      permanent
+      expand-on-hover
+      rail
+      mini-variant-width="64"
       width="320"
       color="#5B6984"
       class="text-white"
@@ -19,16 +15,11 @@
         <v-list-item class="d-flex align-center">
           <template #prepend>
             <v-avatar size="32" class="rounded-lg">
-              <v-img
-                :src="aecci_logo"
-                alt="Logo AECCI"
-                contain
-              />
+              <v-img :src="aecci_logo" alt="Logo AECCI" contain />
             </v-avatar>
           </template>
-          <v-list-item-title class="ml-2 font-weight-bold text-h6">AECCI ADMIN</v-list-item-title>
+          <v-list-item-title class="ml-2 font-weight-bold text-h6">ACCIONES</v-list-item-title>
         </v-list-item>
-
         <v-divider class="my-2 border-opacity-50" />
 
         <v-list-item :to="{ name: 'Products' }" ripple link color="blue-lighten-2">
@@ -39,7 +30,6 @@
             <v-list-item-title>Productos Disponibles</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
         <v-list-item :to="{ name: 'Announcements' }" ripple link color="blue-lighten-2">
           <template #prepend>
             <svg-icon type="mdi" :path="mdiBullhornOutline" />
@@ -48,7 +38,6 @@
             <v-list-item-title>Anuncios</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
         <v-list-item @click="openStatusDialog" ripple link color="blue-lighten-2">
           <template #prepend>
             <svg-icon type="mdi" :path="mdiStore" />
@@ -66,6 +55,7 @@
       </v-container>
     </v-main>
 
+    <!-- Diálogos para estado de la tienda -->
     <v-dialog v-model="confirmDialog" max-width="400">
       <v-card>
         <v-card-title class="headline">Cambiar estado de la tienda</v-card-title>
@@ -97,23 +87,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useDisplay } from 'vuetify';
 import SvgIcon from '@jamescoyle/vue-icon';
-import { mdiArchiveEdit, mdiBullhornOutline, mdiStore, mdiMenu } from '@mdi/js';
+import { mdiArchiveEdit, mdiBullhornOutline, mdiStore } from '@mdi/js';
 import aecci_logo from '@/assets/aecci_logo.png';
 import api from '@/services/api';
 
-// Reactive state
-const drawer = ref(null);
+const drawer = ref(true);
 const isStoreOpen = ref(false);
 const isLoadingStatus = ref(true);
 const confirmDialog = ref(false);
 const resultDialog = ref(false);
 
-// Vuetify display composable
-const display = useDisplay();
-
-// Fetch current store status
 const fetchStoreStatus = async () => {
   isLoadingStatus.value = true;
   try {
@@ -128,13 +112,11 @@ const fetchStoreStatus = async () => {
   }
 };
 
-// Open confirmation dialog
 const openStatusDialog = () => {
   fetchStoreStatus();
   confirmDialog.value = true;
 };
 
-// Toggle status via backend
 const toggleStoreStatus = async () => {
   confirmDialog.value = false;
   try {
@@ -146,19 +128,7 @@ const toggleStoreStatus = async () => {
   }
 };
 
-// On mount, load status
 onMounted(() => {
   fetchStoreStatus();
-  drawer.value = display.mdAndUp.value; // Drawer is open by default on larger screens
 });
 </script>
-
-<style scoped>
-.v-list-item {
-  justify-content: center;
-}
-
-.v-list-item-content {
-  padding-left: 16px;
-}
-</style>

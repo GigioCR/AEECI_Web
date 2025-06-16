@@ -26,7 +26,7 @@ namespace AecciWeb.Tests
         private IConfiguration GetFakeConfig()
         {
             var inMemorySettings = new Dictionary<string, string> {
-                {"JwtSettings:SecretKey", "THIS_IS_A_DEMO_SECRET_1234567890123456"}, // must be at least 16 chars
+                {"JwtSettings:SecretKey", "THIS_IS_A_DEMO_SECRET_1234567890123456"}, 
                 {"JwtSettings:Issuer", "TestIssuer"},
                 {"JwtSettings:Audience", "TestAudience"},
             };

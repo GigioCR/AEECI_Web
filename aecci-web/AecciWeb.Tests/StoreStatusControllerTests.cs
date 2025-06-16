@@ -36,7 +36,7 @@ namespace AecciWeb.Tests
             // Assert
             var okResult = Assert.IsType<ActionResult<StoreStatusDto>>(result);
             var value = Assert.IsType<StoreStatusDto>(okResult.Value);
-            Assert.True(value.IsOpen); // Should return the most recent, which is true
+            Assert.True(value.IsOpen);
         }
 
         [Fact]

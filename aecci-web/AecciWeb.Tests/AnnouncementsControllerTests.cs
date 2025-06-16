@@ -7,21 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System; // Added for DateTime.UtcNow
+using System;
 
 namespace AecciWeb.Tests
 {
     public class AnnouncementsControllerTests
     {
-        // Helper method to create an in-memory ApplicationDbContext
-        // Using a unique database name for each test helps prevent cross-test interference.
+        
         private ApplicationDbContext GetDbContext(string dbName)
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: dbName)
                 .Options;
             var context = new ApplicationDbContext(options);
-            // Ensure the database is clean for each test
+            
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             return context;
@@ -48,7 +47,7 @@ namespace AecciWeb.Tests
                 IsUp = false,
                 PublishedDate = System.DateTime.UtcNow
             });
-            await context.SaveChangesAsync(); // Use SaveChangesAsync in tests if controller uses it
+            await context.SaveChangesAsync();
 
             var controller = new AnnouncementsController(context);
 
@@ -121,7 +120,7 @@ namespace AecciWeb.Tests
         public async Task GetAnnouncementById_ReturnsNotFound_WhenAnnouncementDoesNotExist()
         {
             // Arrange
-            var context = GetDbContext(nameof(GetAnnouncementById_ReturnsNotFound_WhenAnnouncementDoesNotExist)); // Empty context
+            var context = GetDbContext(nameof(GetAnnouncementById_ReturnsNotFound_WhenAnnouncementDoesNotExist));
             var controller = new AnnouncementsController(context);
 
             // Act
@@ -154,7 +153,7 @@ namespace AecciWeb.Tests
             Assert.Equal("Nuevo", readDto.Title);
 
             // Confirm it’s actually in the database
-            Assert.Equal(1, await context.Announcements.CountAsync()); // Use CountAsync for async context
+            Assert.Equal(1, await context.Announcements.CountAsync()); 
         }
 
         [Fact]
@@ -163,9 +162,9 @@ namespace AecciWeb.Tests
             // Arrange
             var context = GetDbContext(nameof(CreateAnnouncement_ReturnsBadRequest_WhenModelIsInvalid));
             var controller = new AnnouncementsController(context);
-            var createDto = new AnnouncementCreateDto { Title = "", Body = "New Body" }; // Invalid due to empty title
+            var createDto = new AnnouncementCreateDto { Title = "", Body = "New Body" }; 
 
-            // Manually add model error to simulate ModelState.IsValid = false
+            
             controller.ModelState.AddModelError("Title", "Title is required");
 
             // Act
@@ -176,7 +175,6 @@ namespace AecciWeb.Tests
         }
 
 
-        // --- NEW TESTS FOR UPDATE ---
 
         [Fact]
         public async Task UpdateAnnouncement_ReturnsNoContent_WhenAnnouncementExistsAndModelIsValid()
@@ -185,7 +183,7 @@ namespace AecciWeb.Tests
             var context = GetDbContext(nameof(UpdateAnnouncement_ReturnsNoContent_WhenAnnouncementExistsAndModelIsValid));
             var originalAnnouncement = new Announcement { Id = 1, Title = "Original", Body = "Original Body", ImageUrl = "original.png", IsUp = true, PublishedDate = DateTime.UtcNow };
             context.Announcements.Add(originalAnnouncement);
-            await context.SaveChangesAsync(); // Save original to DB
+            await context.SaveChangesAsync(); 
 
             var controller = new AnnouncementsController(context);
             var updateDto = new AnnouncementUpdateDto
@@ -193,29 +191,29 @@ namespace AecciWeb.Tests
                 Title = "Updated Title",
                 Body = "Updated Body",
                 ImageUrl = "updated.png",
-                IsUp = false // Change status
+                IsUp = false 
             };
 
             // Act
             var result = await controller.UpdateAnnouncement(originalAnnouncement.Id, updateDto);
 
             // Assert
-            Assert.IsType<NoContentResult>(result); // Expect 204 No Content
+            Assert.IsType<NoContentResult>(result); 
 
-            // Verify the announcement was updated in the database
+            
             var updatedAnnouncement = await context.Announcements.FindAsync(originalAnnouncement.Id);
             Assert.NotNull(updatedAnnouncement);
             Assert.Equal("Updated Title", updatedAnnouncement.Title);
             Assert.Equal("Updated Body", updatedAnnouncement.Body);
             Assert.Equal("updated.png", updatedAnnouncement.ImageUrl);
-            Assert.False(updatedAnnouncement.IsUp); // Verify IsUp changed
+            Assert.False(updatedAnnouncement.IsUp); 
         }
 
         [Fact]
         public async Task UpdateAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist()
         {
             // Arrange
-            var context = GetDbContext(nameof(UpdateAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist)); // Empty context
+            var context = GetDbContext(nameof(UpdateAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist)); 
             var controller = new AnnouncementsController(context);
             var updateDto = new AnnouncementUpdateDto
             {
@@ -226,10 +224,10 @@ namespace AecciWeb.Tests
             };
 
             // Act
-            var result = await controller.UpdateAnnouncement(999, updateDto); // Try to update ID 999
+            var result = await controller.UpdateAnnouncement(999, updateDto); 
 
             // Assert
-            Assert.IsType<NotFoundObjectResult>(result); // Expect 404 Not Found
+            Assert.IsType<NotFoundObjectResult>(result);
         }
 
         [Fact]
@@ -244,27 +242,26 @@ namespace AecciWeb.Tests
             var controller = new AnnouncementsController(context);
             var updateDto = new AnnouncementUpdateDto
             {
-                Title = "", // Invalid: Title is empty
+                Title = "", 
                 Body = "Updated Body",
                 ImageUrl = "updated.png",
                 IsUp = true
             };
 
-            // Manually add model error to simulate ModelState.IsValid = false
+            
             controller.ModelState.AddModelError("Title", "Title is required");
 
             // Act
             var result = await controller.UpdateAnnouncement(originalAnnouncement.Id, updateDto);
 
             // Assert
-            Assert.IsType<BadRequestObjectResult>(result); // Expect 400 Bad Request
+            Assert.IsType<BadRequestObjectResult>(result); 
 
-            // Ensure no changes were saved to the database for this ID
+            
             var unchangedAnnouncement = await context.Announcements.AsNoTracking().FirstOrDefaultAsync(a => a.Id == originalAnnouncement.Id);
-            Assert.Equal("Original", unchangedAnnouncement.Title); // Title should not have changed
+            Assert.Equal("Original", unchangedAnnouncement.Title); 
         }
 
-        // --- END NEW TESTS FOR UPDATE ---
 
 
         [Fact]
@@ -290,14 +287,14 @@ namespace AecciWeb.Tests
 
             // Assert
             Assert.IsType<NoContentResult>(result);
-            Assert.Empty(await context.Announcements.ToListAsync()); // Use ToListAsync for async context
+            Assert.Empty(await context.Announcements.ToListAsync()); 
         }
 
         [Fact]
         public async Task DeleteAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist()
         {
             // Arrange
-            var context = GetDbContext(nameof(DeleteAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist)); // Empty context
+            var context = GetDbContext(nameof(DeleteAnnouncement_ReturnsNotFound_WhenAnnouncementDoesNotExist)); 
             var controller = new AnnouncementsController(context);
 
             // Act
