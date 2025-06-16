@@ -43,6 +43,6 @@ jobs:
           args: >
             -Dsonar.projectKey=GigioCR_AEECI_Web
             -Dsonar.organization=gigiocr
-            -Dsonar.coverageReportPaths=**/coverage.cobertura.xml
+            -Dsonar.coverageReportPaths=aecci-web/AecciWeb.Tests/TestResults/**/coverage.cobertura.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
